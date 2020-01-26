@@ -1,7 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 var logger = require('winston');
 var auth = require('./auth.json');
-const { exec,spawn } = require('child_process');
+const { exec } = require('child_process');
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -16,14 +16,15 @@ const options = {
   parse_mode: 'html'
 }
 
+// Accepts man requests and calls a request for the specified page
 bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
   const chatId = msg.chat.id;
   const page = match[1]; // the captured page
-  const type = match[2]; // the specified type
+  const type = match[2]; // the specified type (link or text)
 
   logger.info(msg.from.first_name + " " + msg.from.last_name + " requested a man call for " + page + " and type " + type)
 
-  // Linux magic
+  // Executes our linux command
   exec('man ' + page, (err, stdout, stderr) => {
     if (stderr) {
       logger.error(stderr)
@@ -32,26 +33,27 @@ bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
         bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
       });;
     } else {
-console.log(type)
       if(type == undefined || type == "link") {
         const link = "http://www.gnu.org/software/coreutils/" + page
-	 bot.sendMessage(chatId, link).catch((error) => {
+	      bot.sendMessage(chatId, link).catch((error) => {
           logger.error(error)
           bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
-        });;
+        });
       } else if(type == "-v" || type == "—verbose" || type == "--verbose") {
-        bot.sendMessage(chatId, stdout).catch((error) => {
-          logger.info("Request from " + msg.from.first_name + " " + msg.from.last_name + " required shortening");
-          bot.sendMessage(chatId, filterMan(stdout)).catch((error) => {
-            logger.error(error);
-            bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
-          });
+        bot.sendMessage(chatId, filterMan(stdout)).catch((error) => {
+          logger.error(error);
+          bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
         });
       }
     }
   });
 });
 
+/**
+ * Filters out the passed manpage contents, and returns in NAME/SYNOPSIS format
+ * 
+ * @param {*} stdout Man page contents
+ */
 function filterMan(stdout) {
   const regex = /NAME\n*(.+)\n*SYNOPSIS\n*(.+)\n*^(?:DESCRIPTION)/gms
   const results = regex.exec(stdout);
