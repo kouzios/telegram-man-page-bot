@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/kouzios/telegram-bot#readme",
   "dependencies": {
+    "child_process": "^1.0.2",
     "node-telegram-bot-api": "^0.40.0",
     "winston": "^3.2.1"
   }
