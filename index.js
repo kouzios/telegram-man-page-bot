@@ -45,8 +45,8 @@ bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
           logger.error(error)
           bot.sendMessage(chatId, filterMan(stdout).catch((error) => {
             bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
-          }) 
-        });;
+          }));
+        });
       }
     }
   });
