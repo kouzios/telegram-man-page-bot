@@ -16,11 +16,12 @@ const options = {
   parse_mode: 'html'
 }
 
-bot.onText(/\/man (.+)/, (msg, match) => {
+bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
   const chatId = msg.chat.id;
   const page = match[1]; // the captured page
+  const type = match[2]; // the specified type
 
-  logger.info(msg.from.first_name + " " + msg.from.last_name + " requested a man call for " + page)
+  logger.info(msg.from.first_name + " " + msg.from.last_name + " requested a man call for " + page + " and type " + type)
 
   // Linux magic
   exec('man ' + page, (err, stdout, stderr) => {
@@ -31,11 +32,24 @@ bot.onText(/\/man (.+)/, (msg, match) => {
         bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
       });;
     } else {
-      logger.info(msg.from.first_name + " " + msg.from.last_name + " received a man call for " + page)
-      bot.sendMessage(chatId, stdout).catch((error) => {
-        logger.error(error)
-        bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
-      });;
+      if(type == undefined || type == "link") {
+        const link = "http://www.gnu.org/software/coreutils/" + page
+        logger.info(msg.from.first_name + " " + msg.from.last_name + " received a link man call for " + page)
+        bot.send(chatId, link).catch((error) => {
+          logger.error(error)
+          bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
+        });;
+      } else if(type == "text") {
+        logger.info(msg.from.first_name + " " + msg.from.last_name + " received a link man call for " + page)
+        bot.send(chatId, filterMan(stdout)).catch((error) => {
+          logger.error(error)
+          bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
+        });;
+      }
     }
   });
 });
+
+function filterMan(stdout) {
+  return stdoud
+}
