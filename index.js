@@ -31,7 +31,7 @@ bot.onText(/\/man (.+)/, (msg, match) => {
     } else {
       console.log(stdout)
       logger.info(msg.from.first_name + " " + msg.from.last_name + " received a man call for " + page)
-      bot.sendMessage(chatId, stdout, options);
+      bot.sendMessage(chatId, stdout);
     }
   });
 });
