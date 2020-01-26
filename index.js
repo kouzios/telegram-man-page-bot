@@ -51,5 +51,5 @@ bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
 });
 
 function filterMan(stdout) {
-  return stdoud
+  return stdout
 }
