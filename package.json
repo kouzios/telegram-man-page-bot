@@ -1,0 +1,29 @@
+{
+  "name": "telegram-man-page-bot",
+  "version": "1.0.0",
+  "description": "This is a bot dedicated for the usage of the `man` command for linux!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kouzios/telegram-bot.git"
+  },
+  "keywords": [
+    "nodejs",
+    "telegram",
+    "bot"
+  ],
+  "author": "Matthew Kouzios | mkouzios@hotmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kouzios/telegram-bot/issues"
+  },
+  "homepage": "https://github.com/kouzios/telegram-bot#readme",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.40.0",
+    "winston": "^3.2.1"
+  }
+}
