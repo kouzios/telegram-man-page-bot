@@ -25,13 +25,17 @@ bot.onText(/\/man (.+)/, (msg, match) => {
   // Linux magic
   exec('man ' + page, (err, stdout, stderr) => {
     if (stderr) {
-      console.log(stderr)
       logger.error(stderr)
-      bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + stderr + "</code>", options);
+      bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + stderr + "</code>", options).catch((error) => {
+        logger.error(error)
+        bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
+      });;
     } else {
-      console.log(stdout)
       logger.info(msg.from.first_name + " " + msg.from.last_name + " received a man call for " + page)
-      bot.sendMessage(chatId, stdout);
+      bot.sendMessage(chatId, stdout).catch((error) => {
+        logger.error(error)
+        bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
+      });;
     }
   });
 });
