@@ -16,8 +16,12 @@ const options = {
   parse_mode: 'html'
 }
 
+<<<<<<< HEAD
 // Accepts man requests and calls a request for the specified page
 bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
+=======
+bot.onText(/\/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
+>>>>>>> 35a68053b44f17f0f2fa629f3ee0b327c83503ec
   const chatId = msg.chat.id;
   const page = match[1]; // the captured page
   const type = match[2]; // the specified type (link or text)
