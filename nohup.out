@@ -346,3 +346,25 @@ SEE ALSO
 GNU coreutils 8.26                                  February 2017                                            NOHUP(1)
 
 {"message":"Matthew Kouzios received a man call for nohup","level":"info"}
+Sun, 26 Jan 2020 07:18:02 GMT node-telegram-bot-api deprecated Automatic enabling of cancellation of promises is deprecated.
+In the future, you will have to enable it yourself.
+See https://github.com/yagop/node-telegram-bot-api/issues/319. at internal/modules/cjs/loader.js:776:30
+{"message":"Matthew Kouzios requested a man call for man and type undefined","level":"info"}
+undefined
+{"message":"Matthew Kouzios requested a man call for man and type -v","level":"info"}
+-v
+{"message":"Request from Matthew Kouzios required shortening","level":"info"}
+{"message":"Smi1ey undefined requested a man call for htop and type undefined","level":"info"}
+undefined
+{"message":"Smi1ey undefined requested a man call for htop and type text","level":"info"}
+text
+{"message":"Smi1ey undefined requested a man call for htop and type -v","level":"info"}
+-v
+{"message":"Request from Smi1ey undefined required shortening","level":"info"}
+{"message":"Matthew Kouzios requested a man call for ls and type undefined","level":"info"}
+undefined
+Sun, 26 Jan 2020 08:23:47 GMT node-telegram-bot-api deprecated Automatic enabling of cancellation of promises is deprecated.
+In the future, you will have to enable it yourself.
+See https://github.com/yagop/node-telegram-bot-api/issues/319. at internal/modules/cjs/loader.js:776:30
+{"message":"Matthew Kouzios requested a man call for ls and type undefined","level":"info"}
+undefined

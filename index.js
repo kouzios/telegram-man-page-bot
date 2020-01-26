@@ -16,7 +16,7 @@ const options = {
   parse_mode: 'html'
 }
 
-bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
+bot.onText(/\/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
   const chatId = msg.chat.id;
   const page = match[1]; // the captured page
   const type = match[2]; // the specified type
