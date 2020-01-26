@@ -35,7 +35,7 @@ bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
       if(type == undefined || type == "link") {
         const link = "http://www.gnu.org/software/coreutils/" + page
         logger.info(msg.from.first_name + " " + msg.from.last_name + " received a link man call for " + page)
-        bot.send(chatId, link).catch((error) => {
+        bot.sendMessage(chatId, link).catch((error) => {
           logger.error(error)
           bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
         });;
