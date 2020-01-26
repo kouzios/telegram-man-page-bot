@@ -43,9 +43,9 @@ bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
         logger.info(msg.from.first_name + " " + msg.from.last_name + " received a link man call for " + page)
         bot.sendMessage(chatId, stdout).catch((error) => {
           logger.error(error)
-          bot.sendMessage(chatId, filterMan(stdout).catch((error) => {
+          bot.sendMessage(chatId, filterMan(stdout)).catch((error) => {
             bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
-          }));
+          });
         });
       }
     }
