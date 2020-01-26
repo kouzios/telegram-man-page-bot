@@ -41,9 +41,11 @@ bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
         });;
       } else if(type == "text") {
         logger.info(msg.from.first_name + " " + msg.from.last_name + " received a link man call for " + page)
-        bot.sendMessage(chatId, filterMan(stdout)).catch((error) => {
+        bot.sendMessage(chatId, stdout).catch((error) => {
           logger.error(error)
-          bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
+          bot.sendMessage(chatId, filterMan(stdout).catch((error) => {
+            bot.sendMessage(chatId, "<b>Your command received the following error:</b>\n<code>" + error.response.body.description + "</code>", options)
+          }) 
         });;
       }
     }
@@ -51,5 +53,9 @@ bot.onText(/man ([^\s]+)(?:\s(.+)){0,1}/, (msg, match) => {
 });
 
 function filterMan(stdout) {
-  return stdout
+  const name_synposis_regex = /NAME\n*(.+)\n*SYNOPSIS\n*(.+)\n*DESCRIPTION/gm
+  const results = name_synposis_regex.exec(stdout)
+  const name = results[1];
+  const synposis = results[2];
+  return "NAME\n" + name + "\nSYNOPSIS\n" + synposis;
 }
